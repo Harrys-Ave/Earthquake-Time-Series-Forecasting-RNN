@@ -20,7 +20,7 @@ The table below summarizes the Mean Absolute Error (MAE) for each model, represe
 |----------------------------------|------------------|------------|
 | ARIMA (baseline)                 | 19.53           | 19.40      |
 | LSTM                             | 19.59           | 19.61      |
-| LSTM with Semivariogram Analysis | 19.57           | 19.39      |
+| LSTM with Semivariogram Analysis | 19.57           | **19.39**      |
 | LSTM with Attention Mechanism    | 19.61           | 19.40      |
 | LSTM with Attention and Semivariogram | 19.53     | 19.41      |
 
@@ -34,27 +34,32 @@ The table below provides the optimal hyperparameters identified for each model d
 
 | Model                           | Parameter              | Best Value |
 |---------------------------------|------------------------|------------|
-| **ARIMA (baseline)**            | p (Autoregressive Term) | 0          |
+| **ARIMA (baseline)**            
+|                                  | p (Autoregressive Term) | 0          |
 |                                 | d (Differencing Term)  | 0          |
 |                                 | q (Moving Average Term)| 0          |
-| **LSTM**                        | LSTM Units             | 16         |
+| **LSTM**                        
+|                                  | LSTM Units             | 16         |
 |                                 | L2 Regularization      | 0.01       |
 |                                 | Learning Rate          | 0.0001     |
 |                                 | Huber Delta            | 20         |
 |                                 | Batch Size             | 32         |
-| **LSTM with Semivariogram Analysis** | LSTM Units         | 64         |
+| **LSTM with Semivariogram Analysis** 
+|                                  | LSTM Units         | 64         |
 |                                 | Dense Units            | 32         |
 |                                 | L2 Regularization      | 0.0001     |
 |                                 | Learning Rate          | 0.0001     |
 |                                 | Huber Delta            | 20         |
 |                                 | Batch Size             | 16         |
-| **LSTM with Attention Mechanism** | LSTM Units (first layer) | 16    |
+| **LSTM with Attention Mechanism** 
+|                                  | LSTM Units (first layer) | 16    |
 |                                 | L2 Regularization      | 0.0001     |
 |                                 | Dropout Rate           | 0.2        |
 |                                 | Learning Rate          | 0.0001     |
 |                                 | Huber Delta            | 20         |
 |                                 | Batch Size             | 16         |
-| **LSTM with Attention and Semivariogram** | LSTM Units (first layer) | 64 |
+| **LSTM with Attention and Semivariogram** 
+|                                  | LSTM Units (first layer) | 64 |
 |                                 | L2 Regularization      | 0.01       |
 |                                 | Dropout Rate           | 0.1        |
 |                                 | Learning Rate          | 0.0001     |
