@@ -69,11 +69,13 @@ This project undertakes a one-step-ahead forecasting approach for predicting sig
      - **Permutation Importance:** This method assesses the impact of each feature by randomly shuffling its values and observing the change in model accuracy, offering an intuitive measure of feature significance.
    - **Performance Degradation Curves:** To validate feature importance results, we used performance degradation curves. This approach sequentially neutralizes the top features (top 9 in our case) identified by each method and measures the cumulative impact on prediction error. We applied the Totally Random Time Series (TRTS) approach for neutralization, replacing each feature with random values to break any internal structure in the data. This technique allows for a comprehensive assessment of the extent to which the model relies on specific features' internal structure.
 
-# Data Sources and Preprocessing
+# Data Sources
 The earthquake data was sourced from the United States Geological Survey (USGS), including details on magnitude, depth, time, and location. The mapping of earthquakes to countries was done using Natural Earth GeoJSON files. For spatial correlation, Semivariogram parameters such as nugget, sill, and range were calculated and used as features in the RNN models.
 
 # Results and Findings
-The LSTM with Semivariogram Analysis achieved the best performance, with an MAE of 19.39 days, slightly outperforming the baseline ARIMA model, which had an MAE of 19.40 days. This result suggests that while the added complexity of RNNs provides some improvement, earthquake forecasting remains a challenging task due to the inherent randomness and unpredictability of seismic events.
+The model that combined LSTM with Semivariogram Analysis achieved the highest performance, obtaining a Mean Absolute Error (MAE) of 19.39 days, which slightly surpassed the baseline ARIMA model’s MAE of 19.40 days. This marginal improvement indicates that while the use of Recurrent Neural Networks (RNNs) with spatial correlation features (via Semivariogram Analysis) adds value, the inherent complexity and unpredictability of seismic events still pose significant challenges for accurate forecasting. 
+
+This result highlights that sophisticated deep learning models may only provide incremental improvements over simpler statistical methods when predicting highly stochastic phenomena like earthquakes. It underscores the importance of exploring both advanced modeling techniques and innovative feature engineering in tackling such unpredictable natural events.
 
 # Full Thesis
 For a detailed description of the research process, methodology, and analysis, refer to the full thesis in the PDF file: Tilburg_University_DSS_Masters_Thesis_Earthquake Forecasting_S2023.pdf.
