@@ -20,34 +20,26 @@ This thesis addresses the challenge of predicting the timing of major earthquake
 8) README.md: Project documentation.
 
 # Methodology
+This project undertakes a one-step-ahead forecasting approach for predicting significant global earthquakes (magnitude 5.5+) using a combination of data science, time series analysis, and deep learning techniques. Below is a brief overview of the methodological stages:
 
-1. **Data Extraction, Transformation, and Loading (ETL)**  
-   - **Data Sources**: Sourced earthquake and tectonic data from the United States Geological Survey (USGS) and Natural Earth.
-   - **Data Cleaning and Transformation**: Filtered the dataset to include only significant global earthquakes (magnitude 5.5 and above) from 1961-2023, ensuring consistent quality and relevance. Removed outliers using Interquartile Range (IQR) analysis to maintain accurate results.
-   - **Data Loading and Integration**: Mapped each earthquake to its respective country and tectonic plate using GeoJSON files, enabling precise spatial analysis. Established a workflow to process data as part of the larger machine learning pipeline, using efficient file handling and storage methods for seamless access.
+1. **Data Extraction, Transformation, and Loading (ETL)**:
+   - **Data Source**: United States Geological Survey (USGS) dataset, focusing on significant earthquakes from 1900 to 2023.
+   - **Data Cleaning**: Excluded data pre-1961 to mitigate the effect of earlier limited seismic technology. Outliers and countries with insufficient data were removed using Interquartile Range (IQR) analysis.
+   - **Data Mapping**: Mapped earthquakes to respective countries and tectonic plates using GeoJSON files. This step required spatial processing to assign earthquakes near national borders accurately.
 
-2. **Time Series Data Preparation and Preprocessing**  
-   - **Stationarization and Interpolation**: Prepared data for recurrent neural networks (RNNs) by ensuring consistent temporal intervals. Inserted empty rows to fill gaps in time, forming a time series suitable for RNN input.
-   - **Feature Engineering**: Extracted essential temporal and spatial features, such as "days until the next earthquake," and calculated cyclic transformations (e.g., sine and cosine of day of the week) to capture recurring patterns. 
-   - **Handling Temporal Dynamics**: Adjusted time series granularity for one-step-ahead forecasting, optimized for RNN-based model accuracy.
+2. **Feature Engineering**:
+   - Calculated cyclic features such as "day of the week" and introduced a target variable, "counter," to track days until the next earthquake for each country.
+   - Engineered additional features, including average earthquake magnitude, magnitude difference, and earthquake count per country.
 
-3. **Data Science and Machine Learning Modeling**  
-   - **Model Selection and Benchmarking**: Designed an experiment comparing traditional time series models like ARIMA with complex RNN architectures (e.g., LSTM networks with attention mechanisms and Semivariogram Analysis).
-   - **Hyperparameter Tuning and Validation**: Employed random search to find the best hyperparameters, applying regularization techniques to reduce overfitting.
-   - **Evaluation and Feature Importance**: Assessed model performance using Median Absolute Error (MAE) and further investigated feature importance through SHAP and Permutation Importance methods to interpret the contributions of key spatial and temporal variables.
+3. **Data Imputation and Temporal Structure**:
+   - Filled gaps in time series to maintain regular intervals using kNN imputation, enabling the consistent temporal structure required by RNNs. For spatial features, Haversine distance was used to ensure geographic accuracy.
 
+4. **Time Series Modeling and Experimental Setup**:
+   - **ARIMA Model**: Established a statistical baseline for comparison.
+   - **LSTM-Based Models**: Developed various LSTM-based models with attention mechanisms and semivariogram analysis to capture spatial and temporal correlations.
 
-
-
-The following models were employed in this study:
-
-1) ARIMA Model: Used as a baseline for comparison.
-2) LSTM Baseline: A simple LSTM model to capture temporal patterns in earthquake occurrences.
-3) LSTM with Semivariogram Analysis: Incorporates Semivariogram Analysis to capture spatial dependencies alongside temporal patterns.
-4) LSTM with Attention Mechanism: Adds an attention layer to the LSTM to improve focus on relevant parts of the sequence.
-5) LSTM with Semivariogram and Attention Mechanism: Combines both Semivariogram Analysis and attention mechanisms for enhanced performance.
-
-Each model was evaluated using the Mean Absolute Error (MAE) metric, with additional feature importance analysis performed on the best-performing model.
+5. **Evaluation and Hyperparameter Tuning**:
+   - Performance was evaluated using MAE, while hyperparameter tuning was achieved through random search to optimize neuron counts, dropout rates, and learning rates.
 
 # Data Sources and Preprocessing
 The earthquake data was sourced from the United States Geological Survey (USGS), including details on magnitude, depth, time, and location. The mapping of earthquakes to countries was done using Natural Earth GeoJSON files. For spatial correlation, Semivariogram parameters such as nugget, sill, and range were calculated and used as features in the RNN models.
