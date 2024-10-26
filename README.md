@@ -34,12 +34,29 @@ This project undertakes a one-step-ahead forecasting approach for predicting sig
 3. **Data Imputation and Temporal Structure**:
    - Filled gaps in time series to maintain regular intervals using kNN imputation, enabling the consistent temporal structure required by RNNs. For spatial features, Haversine distance was used to ensure geographic accuracy.
 
-4. **Time Series Modeling and Experimental Setup**:
+4. **Data Splitting**
+   - Train-Validation-Test Split: Given the time series nature of the data, a temporal split was implemented to ensure that the model's training, validation, and testing phases reflect the most current conditions and trends in seismic activity.
+   - The **most recent 20%** of the data was allocated as the test set.
+   - The remaining **80%** of the data was split further, with **25%** used as the validation set and **60%** as the training set.
+   - This split preserved the temporal structure, allowing for a realistic evaluation of model performance on unseen data.
+
+5. **Time Series Modeling and Experimental Setup**:
    - **ARIMA Model**: Established a statistical baseline for comparison.
    - **LSTM-Based Models**: Developed various LSTM-based models with attention mechanisms and semivariogram analysis to capture spatial and temporal correlations.
 
-5. **Evaluation and Hyperparameter Tuning**:
+6. **Evaluation and Hyperparameter Tuning**:
    - Performance was evaluated using MAE, while hyperparameter tuning was achieved through random search to optimize neuron counts, dropout rates, and learning rates.
+
+7. **Error Analysis:**
+   - To assess model reliability and generalization, we implemented two methods:
+     - **Residual Distribution Analysis:** This technique checks for normal distribution and constant variance in residuals. Deviations from these properties indicate potential issues, such as non-linearity or the presence of outliers, providing insights into model weaknesses.
+     - **Residuals vs Actual Values Scatter Plot:** This scatter plot examines the relationship between residuals and actual values, helping to identify patterns in prediction errors. It is especially useful for detecting heteroscedasticity, where residual variance increases with actual values, revealing areas where the model might struggle to maintain prediction accuracy.
+
+8. **Feature Importance Analysis:**
+   - We applied two methods to identify the most influential features in the model:
+     - **SHAP (SHapley Additive exPlanations):** Based on cooperative game theory, SHAP values provide a robust measure of feature importance by calculating each feature’s contribution to model predictions. This approach is valuable for understanding feature interactions and contributions across complex datasets.
+     - **Permutation Importance:** This method assesses the impact of each feature by randomly shuffling its values and observing the change in model accuracy, offering an intuitive measure of feature significance.
+   - **Performance Degradation Curves:** To validate feature importance results, we used performance degradation curves. This approach sequentially neutralizes the top features (top 9 in our case) identified by each method and measures the cumulative impact on prediction error. We applied the Totally Random Time Series (TRTS) approach for neutralization, replacing each feature with random values to break any internal structure in the data. This technique allows for a comprehensive assessment of the extent to which the model relies on specific features' internal structure.
 
 # Data Sources and Preprocessing
 The earthquake data was sourced from the United States Geological Survey (USGS), including details on magnitude, depth, time, and location. The mapping of earthquakes to countries was done using Natural Earth GeoJSON files. For spatial correlation, Semivariogram parameters such as nugget, sill, and range were calculated and used as features in the RNN models.
