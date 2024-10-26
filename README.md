@@ -1,8 +1,8 @@
 # Earthquake Forecasting Using Recurrent Neural Networks and Semivariogram Analysis
 
-# Author: Harry Averkiadis
-# Institution: Tilburg University, MSc in Data Science & Society
-# Date: June 24, 2024
+**Author**: Harry Averkiadis
+**Institution**: Tilburg University, MSc in Data Science & Society
+**Date**: June 24, 2024
 
 This repository contains the code and analysis for my master's thesis on forecasting significant global earthquakes (magnitude 5.5+) using Recurrent Neural Networks (RNNs) with enhancements such as Semivariogram Analysis and Attention Mechanisms.
 
