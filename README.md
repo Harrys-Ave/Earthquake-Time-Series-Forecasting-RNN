@@ -1,23 +1,23 @@
 # Earthquake Forecasting Using Recurrent Neural Networks and Semivariogram Analysis
+
+# Author: Harry Averkiadis
+# Institution: Tilburg University, MSc in Data Science & Society
+# Date: June 24, 2024
+
 This repository contains the code and analysis for my master's thesis on forecasting significant global earthquakes (magnitude 5.5+) using Recurrent Neural Networks (RNNs) with enhancements such as Semivariogram Analysis and Attention Mechanisms.
 
 # Project Overview
 This thesis addresses the challenge of predicting the timing of major earthquakes by employing RNNs, specifically Long Short-Term Memory (LSTM) networks. The primary innovation in this research lies in integrating Semivariogram Analysis to capture spatial dependencies and using attention mechanisms to enhance predictive performance. The dataset spans from 1900 to 2023, with a focus on capturing spatio-temporal patterns to estimate the number of days until the next significant earthquake event.
 
 # Files Overview
-1) EDA_1_LSTM_baseline_model.ipynb: Contains exploratory data analysis (EDA) and the baseline LSTM model. This notebook includes all the EDA visuals and insights gained from preliminary analysis.
-
-2) EDA_1_model_ARIMA.ipynb: Implements a simple ARIMA model as a statistical baseline to compare with the more complex deep learning approaches.
-
-3) EDA_2_baseline_plus_semivariogram_model.ipynb: This notebook contains the best-performing model, which combines the LSTM with Semivariogram Analysis. This model achieved the lowest error in predicting the timing of earthquakes.
-
-4) EDA_3_baseline_plus_attention_model.ipynb: Explores the use of attention mechanisms to improve prediction accuracy over the baseline LSTM model.
-
-5) EDA_4_baseline_plus_semivariogram_attention_model.ipynb: Combines both Semivariogram Analysis and attention mechanisms in an LSTM model to assess the additive impact of these methods on prediction accuracy.
-
-6) Mapping of earthquakes with countries.ipynb: Maps each earthquake to a specific country, utilizing a GeoJSON file for geographic boundaries. The mapped dataset was used in the subsequent models to avoid recalculating this time-intensive step for each experiment.
-
-7) README.md: Project documentation.
+1) Tilburg_University_DSS_Masters_Thesis_Earthquake Forecasting_S2023.pdf: The complete thesis document, detailing the research problem, methodology, results, and conclusions.
+2) EDA_1_LSTM_baseline_model.ipynb: Contains exploratory data analysis (EDA) and the baseline LSTM model. This notebook includes all the EDA visuals and insights gained from preliminary analysis.
+3) EDA_1_model_ARIMA.ipynb: Implements a simple ARIMA model as a statistical baseline to compare with the more complex deep learning approaches.
+4) EDA_2_baseline_plus_semivariogram_model.ipynb: This notebook contains the best-performing model, which combines the LSTM with Semivariogram Analysis. This model achieved the lowest error in predicting the timing of earthquakes.
+5) EDA_3_baseline_plus_attention_model.ipynb: Explores the use of attention mechanisms to improve prediction accuracy over the baseline LSTM model.
+6) EDA_4_baseline_plus_semivariogram_attention_model.ipynb: Combines both Semivariogram Analysis and attention mechanisms in an LSTM model to assess the additive impact of these methods on prediction accuracy.
+7) Mapping of earthquakes with countries.ipynb: Maps each earthquake to a specific country, utilizing a GeoJSON file for geographic boundaries. The mapped dataset was used in the subsequent models to avoid recalculating this time-intensive step for each experiment.
+8) README.md: Project documentation.
 
 # Methodology
 The following models were employed in this study:
@@ -35,6 +35,9 @@ The earthquake data was sourced from the United States Geological Survey (USGS),
 
 # Results and Findings
 The LSTM with Semivariogram Analysis achieved the best performance, with an MAE of 19.39 days, slightly outperforming the baseline ARIMA model, which had an MAE of 19.40 days. This result suggests that while the added complexity of RNNs provides some improvement, earthquake forecasting remains a challenging task due to the inherent randomness and unpredictability of seismic events.
+
+# Full Thesis
+For a detailed description of the research process, methodology, and analysis, refer to the full thesis in the PDF file: Tilburg_University_DSS_Masters_Thesis_Earthquake Forecasting_S2023.pdf.
 
 # Dependencies
 Python 3.11
