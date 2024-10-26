@@ -20,6 +20,25 @@ This thesis addresses the challenge of predicting the timing of major earthquake
 8) README.md: Project documentation.
 
 # Methodology
+
+1. **Data Extraction, Transformation, and Loading (ETL)**  
+   - **Data Sources**: Sourced earthquake and tectonic data from the United States Geological Survey (USGS) and Natural Earth.
+   - **Data Cleaning and Transformation**: Filtered the dataset to include only significant global earthquakes (magnitude 5.5 and above) from 1961-2023, ensuring consistent quality and relevance. Removed outliers using Interquartile Range (IQR) analysis to maintain accurate results.
+   - **Data Loading and Integration**: Mapped each earthquake to its respective country and tectonic plate using GeoJSON files, enabling precise spatial analysis. Established a workflow to process data as part of the larger machine learning pipeline, using efficient file handling and storage methods for seamless access.
+
+2. **Time Series Data Preparation and Preprocessing**  
+   - **Stationarization and Interpolation**: Prepared data for recurrent neural networks (RNNs) by ensuring consistent temporal intervals. Inserted empty rows to fill gaps in time, forming a time series suitable for RNN input.
+   - **Feature Engineering**: Extracted essential temporal and spatial features, such as "days until the next earthquake," and calculated cyclic transformations (e.g., sine and cosine of day of the week) to capture recurring patterns. 
+   - **Handling Temporal Dynamics**: Adjusted time series granularity for one-step-ahead forecasting, optimized for RNN-based model accuracy.
+
+3. **Data Science and Machine Learning Modeling**  
+   - **Model Selection and Benchmarking**: Designed an experiment comparing traditional time series models like ARIMA with complex RNN architectures (e.g., LSTM networks with attention mechanisms and Semivariogram Analysis).
+   - **Hyperparameter Tuning and Validation**: Employed random search to find the best hyperparameters, applying regularization techniques to reduce overfitting.
+   - **Evaluation and Feature Importance**: Assessed model performance using Median Absolute Error (MAE) and further investigated feature importance through SHAP and Permutation Importance methods to interpret the contributions of key spatial and temporal variables.
+
+
+
+
 The following models were employed in this study:
 
 1) ARIMA Model: Used as a baseline for comparison.
