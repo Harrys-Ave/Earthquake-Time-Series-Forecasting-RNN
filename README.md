@@ -21,38 +21,49 @@ This thesis addresses the challenge of predicting the timing of major earthquake
 
 # Methodology
 This project undertakes a one-step-ahead forecasting approach for predicting significant global earthquakes (magnitude 5.5+) using a combination of data science, time series analysis, and deep learning techniques. Below is a brief overview of the methodological stages:
+  
+1. **Data Extraction, Transformation, and Loading (ETL):**
+   - **Data Source:** United States Geological Survey (USGS) dataset, focusing on significant earthquakes (magnitude 5.5+) from 1900 to 2023.
+   - **Data Cleaning:** Excluded data prior to 1961 to mitigate the effect of limited seismic technology in earlier years. Outliers and countries with insufficient data were removed using Interquartile Range (IQR) analysis.
+   - **Data Mapping:** Earthquakes were mapped to specific countries and tectonic plates using GeoJSON files. Earthquakes outside national boundaries were assigned to the nearest country, enabling spatial differentiation and better analysis of seismic activity patterns.
+   - **Feature Engineering:**
+     - Introduced a target variable, "counter," to track days until the next earthquake for each country.
+     - Created cyclic features such as "day of the week" (with sine and cosine transformations) to capture temporal patterns.
+     - Split the "time" feature into "year," "month," and "day" to improve model comprehension.
+     - Engineered additional features, including average earthquake magnitude, magnitude difference, and earthquake count per country.
+   - **Data Imputation and Consistency Maintenance:**
+     - Gaps in time series were filled using kNN imputation to ensure a regular interval structure. Spatial imputation used the Haversine distance for accurate geographic adjustments.
+     - Days with multiple earthquakes were handled by redistributing records within a 10-day window to maintain continuity, reducing missing data rates.
+   - **Feature Transformation and Standardization:**
+     - Applied log transformations and upper clipping to skewed features (e.g., depth, magnitude) to manage outliers. Standardization was applied to all features for consistent scaling during model training.
+   - **Stationarity and Seasonality Checks:**
+     - Confirmed time series stationarity using the Dickey-Fuller test.
+     - Analyzed seasonality using additive decomposition, revealing a 91-day cyclic pattern, potentially useful for predictions.
+   - **Autocorrelation Analysis:** Conducted ACF and PACF analyses to aid in configuring the ARIMA model parameters.
+   - **Semivariogram Analysis:** Applied semivariogram analysis (globally, by tectonic plate, and by country) to capture spatial dependencies. Parameters like nugget, sill, and range were computed to enhance the model's understanding of spatial variability in earthquake data.
 
-1. **Data Extraction, Transformation, and Loading (ETL)**:
-   - **Data Source**: United States Geological Survey (USGS) dataset, focusing on significant earthquakes from 1900 to 2023.
-   - **Data Cleaning**: Excluded data pre-1961 to mitigate the effect of earlier limited seismic technology. Outliers and countries with insufficient data were removed using Interquartile Range (IQR) analysis.
-   - **Data Mapping**: Mapped earthquakes to respective countries and tectonic plates using GeoJSON files. This step required spatial processing to assign earthquakes near national borders accurately.
-
-2. **Feature Engineering**:
-   - Calculated cyclic features such as "day of the week" and introduced a target variable, "counter," to track days until the next earthquake for each country.
-   - Engineered additional features, including average earthquake magnitude, magnitude difference, and earthquake count per country.
-
-3. **Data Imputation and Temporal Structure**:
+2. **Data Imputation and Temporal Structure**:
    - Filled gaps in time series to maintain regular intervals using kNN imputation, enabling the consistent temporal structure required by RNNs. For spatial features, Haversine distance was used to ensure geographic accuracy.
 
-4. **Data Splitting**
+3. **Data Splitting**
    - Train-Validation-Test Split: Given the time series nature of the data, a temporal split was implemented to ensure that the model's training, validation, and testing phases reflect the most current conditions and trends in seismic activity.
    - The **most recent 20%** of the data was allocated as the test set.
    - The remaining **80%** of the data was split further, with **25%** used as the validation set and **60%** as the training set.
    - This split preserved the temporal structure, allowing for a realistic evaluation of model performance on unseen data.
 
-5. **Time Series Modeling and Experimental Setup**:
+4. **Time Series Modeling and Experimental Setup**:
    - **ARIMA Model**: Established a statistical baseline for comparison.
    - **LSTM-Based Models**: Developed various LSTM-based models with attention mechanisms and semivariogram analysis to capture spatial and temporal correlations.
 
-6. **Evaluation and Hyperparameter Tuning**:
+5. **Evaluation and Hyperparameter Tuning**:
    - Performance was evaluated using MAE, while hyperparameter tuning was achieved through random search to optimize neuron counts, dropout rates, and learning rates.
 
-7. **Error Analysis:**
+6. **Error Analysis:**
    - To assess model reliability and generalization, we implemented two methods:
      - **Residual Distribution Analysis:** This technique checks for normal distribution and constant variance in residuals. Deviations from these properties indicate potential issues, such as non-linearity or the presence of outliers, providing insights into model weaknesses.
      - **Residuals vs Actual Values Scatter Plot:** This scatter plot examines the relationship between residuals and actual values, helping to identify patterns in prediction errors. It is especially useful for detecting heteroscedasticity, where residual variance increases with actual values, revealing areas where the model might struggle to maintain prediction accuracy.
 
-8. **Feature Importance Analysis:**
+7. **Feature Importance Analysis:**
    - We applied two methods to identify the most influential features in the model:
      - **SHAP (SHapley Additive exPlanations):** Based on cooperative game theory, SHAP values provide a robust measure of feature importance by calculating each feature’s contribution to model predictions. This approach is valuable for understanding feature interactions and contributions across complex datasets.
      - **Permutation Importance:** This method assesses the impact of each feature by randomly shuffling its values and observing the change in model accuracy, offering an intuitive measure of feature significance.
