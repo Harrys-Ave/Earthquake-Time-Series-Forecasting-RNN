@@ -19,6 +19,13 @@ This thesis addresses the challenge of predicting the timing of major earthquake
 7) Mapping of earthquakes with countries.ipynb: Maps each earthquake to a specific country, utilizing a GeoJSON file for geographic boundaries. The mapped dataset was used in the subsequent models to avoid recalculating this time-intensive step for each experiment.
 8) README.md: Project documentation.
 
+# Viewing the Jupyter Notebooks
+
+Due to the large size of the `.ipynb` files in this repository, GitHub may not be able to render them directly in the browser. To view the notebooks, you can:
+
+1. **Download the `.ipynb` file** and open it locally in Jupyter Notebook or JupyterLab.
+2. **Use NBViewer**: Copy the GitHub link of the notebook and paste it into [NBViewer](https://nbviewer.jupyter.org/) for online viewing.
+
 # Methodology
 This project undertakes a one-step-ahead forecasting approach for predicting significant global earthquakes (magnitude 5.5+) using a combination of data science, time series analysis, and deep learning techniques. Below is a brief overview of the methodological stages:
   
